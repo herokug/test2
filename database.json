@@ -1,0 +1,100 @@
+{
+  "users": {
+    "94777611095@s.whatsapp.net": {
+      "exp": 24,
+      "limit": 100,
+      "afk": -1,
+      "afkReason": "",
+      "react": false,
+      "banned": false
+    },
+    "120363279518973310@g.us": {
+      "exp": 3,
+      "limit": 100,
+      "afk": -1,
+      "afkReason": "",
+      "react": false,
+      "banned": false
+    },
+    "14192093396@s.whatsapp.net": {
+      "exp": 11,
+      "limit": 100,
+      "afk": -1,
+      "afkReason": "",
+      "react": false,
+      "banned": false
+    },
+    "94702978512@s.whatsapp.net": {
+      "exp": 292,
+      "limit": 100,
+      "afk": -1,
+      "afkReason": "",
+      "react": false,
+      "banned": false
+    },
+    "94771588281@s.whatsapp.net": {
+      "exp": 432,
+      "limit": 100,
+      "afk": -1,
+      "afkReason": "",
+      "react": false,
+      "banned": false
+    }
+  },
+  "chats": {
+    "120363279518973310@g.us": {
+      "isBanned": false,
+      "welcome": false,
+      "detect": false,
+      "sWelcome": "",
+      "sBye": "",
+      "sPromote": "",
+      "sDemote": "",
+      "antiDelete": false,
+      "antiLink": false,
+      "viewOnce": false,
+      "expired": 0
+    },
+    "120363279359156442@g.us": {
+      "isBanned": false,
+      "welcome": false,
+      "detect": false,
+      "sWelcome": "",
+      "sBye": "",
+      "sPromote": "",
+      "sDemote": "",
+      "antiDelete": false,
+      "antiLink": false,
+      "viewOnce": false,
+      "expired": 0
+    }
+  },
+  "stats": {
+    "chem2.js": {
+      "total": 26,
+      "success": 26,
+      "last": 1716271198719,
+      "lastSuccess": 1716271198719
+    },
+    "save.js": {
+      "total": 3,
+      "success": 3,
+      "last": 1716259942317,
+      "lastSuccess": 1716259942317
+    }
+  },
+  "msgs": {},
+  "sticker": {},
+  "settings": {
+    "94777611095@s.whatsapp.net": {
+      "self": false,
+      "autoread": false,
+      "restrict": false
+    },
+    "94771588281@s.whatsapp.net": {
+      "self": false,
+      "autoread": false,
+      "restrict": false
+    }
+  }
+}

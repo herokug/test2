@@ -1,0 +1,21 @@
+{
+    "name": "NilaBot",
+    "description": "Whatsapp bot",
+    "keywords": [
+      "whatsapp bot",
+      "nodejs"
+    ],
+    "repository": "https://github.com/Sithujaya01/nila-private",
+      "buildpacks": [
+      {
+        "url": "heroku/nodejs"
+      },
+      {
+        "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+      },
+      {
+        "url": "https://github.com/clhuang/heroku-buildpack-webp-binaries.git"
+      }
+    ]
+  }
+  
