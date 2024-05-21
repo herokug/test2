@@ -268,24 +268,31 @@ async function start(numbersArray, conn, m) {
     const readmore = more.repeat(4001);
     const b1 = await conn.sendMessage(m.chat, { text: 'ආරම්භ කරමින්..\n\nයැවීමට ඇති මුළු අංක ගණන : ' + numbersArray.length + '\nදැනට යවා ඇති මුළු අංක ගණන : ' + await totalNumbers() + '\n\n' + 'ඔබ එවූ අංක :\n' + readmore + numbersArray.join(',\n') }, { quoted: m });
     await delay(500);
+
     await react(conn, m, b1, '📲');
 
     var filteredArray = [];
 
     var count = 0;
 
+    if (numbersArray.length > 120 ) {
+    const a1 = await conn.sendMessage(m.chat, { text: `⚠️ ඔබ එවූ අංක ගණන > 100 බැවින් නොදන්වාම දැනටමත් යැවූ අංක ඇත්නම් මඟ හරිනු ලැබේ.\n\nඔබ එවූ මුළු අංක ගණන : ${numbersArray.length}` }, { quoted: m });
+    await react(conn, m, a1, '⭕');
+    }
+
     for (let index = 0; index < numbersArray.length; index++) {
 
         count = count + 1
 
 
+    
         
         if (count == 120 + 1) {
-            const a1 = await conn.sendMessage(m.chat, { text: `⭕⭕ අංක ${count - 1} සීමාව කරා ළඟා විය., ක්රියාවලිය මිනිත්තු 10 ක් සඳහා නතර විය.` } , { quoted: m } );
+            const a1 = await conn.sendMessage(m.chat, { text: `⭕⭕ අංක ${count - 1} සීමාව කරා ළඟා විය., ක්රියාවලිය මිනිත්තු 10 ක් සඳහා නතර විය.` }, { quoted: m });
             await delay(500);
             await react(conn, m, a1, '⏰');
             await delay(1000 * 60 * 10);
-            const a2 = await conn.sendMessage(m.chat, { text: `🔄 ක්රියාවලිය නැවත ආරම්භ කිරීම..` } , { quoted: m } );
+            const a2 = await conn.sendMessage(m.chat, { text: `🔄 ක්රියාවලිය නැවත ආරම්භ කිරීම..` }, { quoted: m });
             await react(conn, m, a2, '✅');
             count = 0
             index = index - 1
@@ -302,12 +309,10 @@ async function start(numbersArray, conn, m) {
                 const a1 = await conn.sendMessage(m.chat, { text: '⚠️ _දැනටමත් යවා ඇත_  ' + `${index + 1}. ` + sendnum.split('@')[0] }, { quoted: m });
                 await delay(500);
                 await react(conn, m, a1, '❌');
-                await delay(1000 * 2 );
+                await delay(1000 * 2);
                 continue;
             }
         } else {
-            const a1 = await conn.sendMessage(m.chat, { text: `⚠️ ඔබ එවූ අංක ගණන > 100 බැවින් නොදන්වාම දැනටමත් යැවූ අංක ඇත්නම් මඟ හරිනු ලැබේ.\n\nඔබ එවූ මුළු අංක ගණන : ${numbersArray.length}`},{ quoted: m });
-            await react(conn, m, a1, '⭕');
             if (b) {
                 filteredArray.push(number);
                 continue;
