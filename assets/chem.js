@@ -335,7 +335,7 @@ async function start(numbersArray, conn, m) {
             console.error('Error sending message to:', sendnum, error);
         }
 
-        await delay(6000);
+        await delay(8000);
     }
 
     const a2 = await conn.sendMessage(m.chat, { text: '*වාර්තාව*\n\nයවන ලද අංක ගණන : ' + `${(numbersArray.length - filteredArray.length) ? (numbersArray.length - filteredArray.length) : '0'}` + '\nනොයවන ලද අංක ගණන : ' + filteredArray.length + '\n\nදැනට යවා ඇති මුළු අංක ගණන : ' + await totalNumbers() + '\n\n' + readmore + 'යවන ලද අංක : \n' + numbersArray.filter(num => !filteredArray.includes(num)).join('\n') + '\nනොයවන ලද අංක : \n' + filteredArray.join('\n') }, { quoted: m });
