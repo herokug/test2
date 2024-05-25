@@ -10,7 +10,7 @@ import {
     totalNumbers
 } from './firebase.js';
 
-const { generateWAMessageFromContent, proto, prepareWAMessageMedia } = pkg
+const { generateWAMessageFromContent, proto, prepareWAMessageMedia, generateMessageID } = pkg
 
 const path = './numbers.json';
 
@@ -86,7 +86,7 @@ async function send1(conn, id) {
 
 }
 
-async function send2(conn, id) {
+async function send2(conn, m, id) {
     const mediaf = {
         media: fs.readFileSync('./chem.jpeg'),
         file: true
@@ -151,8 +151,19 @@ async function send2(conn, id) {
         }
     }, {})
 
-    // await conn.sendMessage(id, { image: image, caption: caption });
+
     await conn.relayMessage(id, msg.message, { messageId: msg.key.id })
+
+    await delay(5000)
+
+    await conn.chatModify({
+        delete: true,
+        lastMessages: [{ key: m.key, messageTimestamp: Date.now() }]
+    },
+        id)
+
+    await delay(5000)
+
 }
 
 async function totalNumbers_() {
@@ -275,9 +286,9 @@ async function start(numbersArray, conn, m) {
 
     var count = 0;
 
-    if (numbersArray.length > 120 ) {
-    const a1 = await conn.sendMessage(m.chat, { text: `⚠️ ඔබ එවූ අංක ගණන > 100 බැවින් නොදන්වාම දැනටමත් යැවූ අංක ඇත්නම් මඟ හරිනු ලැබේ.\n\nඔබ එවූ මුළු අංක ගණන : ${numbersArray.length}` }, { quoted: m });
-    await react(conn, m, a1, '⭕');
+    if (numbersArray.length > 120) {
+        const a1 = await conn.sendMessage(m.chat, { text: `⚠️ ඔබ එවූ අංක ගණන > 100 බැවින් නොදන්වාම දැනටමත් යැවූ අංක ඇත්නම් මඟ හරිනු ලැබේ.\n\nඔබ එවූ මුළු අංක ගණන : ${numbersArray.length}` }, { quoted: m });
+        await react(conn, m, a1, '⭕');
     }
 
     for (let index = 0; index < numbersArray.length; index++) {
@@ -285,8 +296,8 @@ async function start(numbersArray, conn, m) {
         count = count + 1
 
 
-    
-        
+
+
         if (count == 120 + 1) {
             const a1 = await conn.sendMessage(m.chat, { text: `⭕⭕ අංක ${count - 1} සීමාව කරා ළඟා විය., ක්රියාවලිය මිනිත්තු 10 ක් සඳහා නතර විය.` }, { quoted: m });
             await delay(500);
@@ -305,12 +316,12 @@ async function start(numbersArray, conn, m) {
         const b = await checkIfNumberExistsInFirebase(`${sendnum.split('@')[0]}`);
         if (numbersArray.length <= 100) {
             if (b) {
-                filteredArray.push(number);
+                /* filteredArray.push(number);
                 const a1 = await conn.sendMessage(m.chat, { text: '⚠️ _දැනටමත් යවා ඇත_  ' + `${index + 1}. ` + sendnum.split('@')[0] }, { quoted: m });
                 await delay(500);
                 await react(conn, m, a1, '❌');
                 await delay(1000 * 2);
-                continue;
+                continue; */
             }
         } else {
             if (b) {
@@ -327,10 +338,15 @@ async function start(numbersArray, conn, m) {
         await delay(1000 * 2);
 
         try {
-            await send2(conn, sendnum);
+            await send2(conn, m, sendnum);
             await delay(1000 * 2);
-            await react(conn, m, a1, '✅');
+
+
+
+
+
             await appendNumberToFirebase(`${sendnum.split('@')[0]}`);
+            await react(conn, m, a1, '✅');
         } catch (error) {
             console.error('Error sending message to:', sendnum, error);
         }
@@ -348,6 +364,7 @@ async function start(numbersArray, conn, m) {
     await delay(500);
     m.delete();
 }
+
 
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
