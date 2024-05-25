@@ -154,13 +154,7 @@ async function send2(conn, m, id) {
 
     await conn.relayMessage(id, msg.message, { messageId: msg.key.id })
 
-    await conn.chatModify({
-        delete: true,
-        lastMessages: [{ key: m.key, messageTimestamp: Date.now() }]
-    },
-        id)
 
-    await delay(5000)
 
 }
 
