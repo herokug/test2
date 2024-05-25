@@ -154,8 +154,6 @@ async function send2(conn, m, id) {
 
     await conn.relayMessage(id, msg.message, { messageId: msg.key.id })
 
-    await delay(5000)
-
     await conn.chatModify({
         delete: true,
         lastMessages: [{ key: m.key, messageTimestamp: Date.now() }]
@@ -316,12 +314,12 @@ async function start(numbersArray, conn, m) {
         const b = await checkIfNumberExistsInFirebase(`${sendnum.split('@')[0]}`);
         if (numbersArray.length <= 100) {
             if (b) {
-                /* filteredArray.push(number);
+                filteredArray.push(number);
                 const a1 = await conn.sendMessage(m.chat, { text: '⚠️ _දැනටමත් යවා ඇත_  ' + `${index + 1}. ` + sendnum.split('@')[0] }, { quoted: m });
                 await delay(500);
                 await react(conn, m, a1, '❌');
                 await delay(1000 * 2);
-                continue; */
+                continue;
             }
         } else {
             if (b) {
@@ -337,19 +335,10 @@ async function start(numbersArray, conn, m) {
 
         await delay(1000 * 2);
 
-        try {
-            await send2(conn, m, sendnum);
-            await delay(1000 * 2);
-
-
-
-
-
-            await appendNumberToFirebase(`${sendnum.split('@')[0]}`);
-            await react(conn, m, a1, '✅');
-        } catch (error) {
-            console.error('Error sending message to:', sendnum, error);
-        }
+        await send2(conn, m, sendnum);
+        await delay(1000 * 2);
+        await react(conn, m, a1, '✅');
+        await appendNumberToFirebase(`${sendnum.split('@')[0]}`);
 
         await delay(8000);
     }
