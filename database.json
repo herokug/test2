@@ -25,7 +25,7 @@
       "banned": false
     },
     "94702978512@s.whatsapp.net": {
-      "exp": 292,
+      "exp": 377,
       "limit": 100,
       "afk": -1,
       "afkReason": "",
@@ -34,6 +34,46 @@
     },
     "94771588281@s.whatsapp.net": {
       "exp": 432,
+      "limit": 100,
+      "afk": -1,
+      "afkReason": "",
+      "react": false,
+      "banned": false
+    },
+    "94702978513@s.whatsapp.net": {
+      "exp": 5,
+      "limit": 100,
+      "afk": -1,
+      "afkReason": "",
+      "react": false,
+      "banned": false
+    },
+    "94714888281@s.whatsapp.net": {
+      "exp": 13,
+      "limit": 100,
+      "afk": -1,
+      "afkReason": "",
+      "react": false,
+      "banned": false
+    },
+    "94785838760@s.whatsapp.net": {
+      "exp": 3,
+      "limit": 100,
+      "afk": -1,
+      "afkReason": "",
+      "react": false,
+      "banned": false
+    },
+    "94741218560@s.whatsapp.net": {
+      "exp": 6,
+      "limit": 100,
+      "afk": -1,
+      "afkReason": "",
+      "react": false,
+      "banned": false
+    },
+    "94762713580@s.whatsapp.net": {
+      "exp": 0,
       "limit": 100,
       "afk": -1,
       "afkReason": "",
@@ -56,6 +96,19 @@
       "expired": 0
     },
     "120363279359156442@g.us": {
+      "isBanned": false,
+      "welcome": false,
+      "detect": false,
+      "sWelcome": "",
+      "sBye": "",
+      "sPromote": "",
+      "sDemote": "",
+      "antiDelete": false,
+      "antiLink": false,
+      "viewOnce": false,
+      "expired": 0
+    },
+    "120363152106754397@g.us": {
       "isBanned": false,
       "welcome": false,
       "detect": false,
@@ -92,6 +145,11 @@
       "restrict": false
     },
     "94771588281@s.whatsapp.net": {
+      "self": false,
+      "autoread": false,
+      "restrict": false
+    },
+    "94702978512@s.whatsapp.net": {
       "self": false,
       "autoread": false,
       "restrict": false

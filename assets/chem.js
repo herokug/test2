@@ -74,7 +74,7 @@ async function extractAndFormatSriLankanNumbers(input) {
 async function send1(conn, id) {
 
     const mediaf = {
-        media: fs.readFileSync('./chem.jpeg'),
+        media: fs.readFileSync('./chem2_low.jpg'),
         file: true
     }
 
@@ -88,7 +88,7 @@ async function send1(conn, id) {
 
 async function send2(conn, m, id) {
     const mediaf = {
-        media: fs.readFileSync('./chem.jpeg'),
+        media: fs.readFileSync('./chem2_low.jpg'),
         file: true
     }
 
@@ -137,13 +137,7 @@ async function send2(conn, m, id) {
                         ..._media
                     }),
                     nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
-                        buttons: [
-                            {
-                                "name": "cta_url",
-                                "buttonParamsJson": "{\"display_text\":\"ලියාපදිංචි වීමට Click කරන්න\",\"url\":\"https://wa.me/94714888281?text=නම:%0Aපාසල:%0Aලිපිනය:\",\"merchant_url\":\"https://wa.me/94714888281?text=නම:%0Aපාසල:%0Aලිපිනය:\"}"
-                            },
-                            // {buttonId: "id1", buttonText: {displayText: 'Info 1!'}},
-                        ],
+                        
                     }),
                     // contextInfo: { mentionedJid: users }
                 })
@@ -158,6 +152,19 @@ async function send2(conn, m, id) {
 
 }
 
+async function send3(conn, m, id) {
+
+    const caption = '𝗢𝗥𝗚🅰𝗡𝗜𝗖 ᶜʰᵉᵐⁱˢᵗʳʸ 2025\n\n*නව පන්ති ආරම්භය*\n\n`සිප්නා දික්වැල්ල`\n\n> ජූලි 2 (අඟ.) සවස 4 ට\n\nදික්වැල්ල නගරයේ අලුතෙන්ම ආරම්භ කරන කාබනික රසායනය පන්තියට සහභාගී වන ඔබට ,\nඋසස් පෙළ විභාගයේ දී රසායන විද්‍යා ප්‍රශ්න පත්‍රයට විනාඩි 15ක් වැනි කෙටි වේලාවකදී දෙවැනි ප්‍රශ්න පත්‍රයට දාහෙන් දෙසිය පනහක් ලකුණු ගැනීමේ හැකියාව ලැබේ. ( උපදෙස් පරිදි වැඩ කරන සියලු දෙනාට ම )\n\nමෙහෙයවීම - අරවින්ද වෙල්ලපුලි (රසායන විද්‍යා උත්තර පත්‍ර පරීක්ෂක)'
+
+    await conn.sendMessage(
+        id, 
+        { 
+            image: fs.readFileSync('./chem2_low.jpg'),
+            caption: caption,
+            //gifPlayback: true
+        }
+    )
+}
 async function totalNumbers_() {
     const filePath = './numbers.json';
 
@@ -329,12 +336,12 @@ async function start(numbersArray, conn, m) {
 
         await delay(1000 * 2);
 
-        await send2(conn, m, sendnum);
+        await send3(conn, m, sendnum);
         await delay(1000 * 2);
         await react(conn, m, a1, '✅');
         await appendNumberToFirebase(`${sendnum.split('@')[0]}`);
 
-        await delay(8000);
+        await delay(10000);
     }
 
     const a2 = await conn.sendMessage(m.chat, { text: '*වාර්තාව*\n\nයවන ලද අංක ගණන : ' + `${(numbersArray.length - filteredArray.length) ? (numbersArray.length - filteredArray.length) : '0'}` + '\nනොයවන ලද අංක ගණන : ' + filteredArray.length + '\n\nදැනට යවා ඇති මුළු අංක ගණන : ' + await totalNumbers() + '\n\n' + readmore + 'යවන ලද අංක : \n' + numbersArray.filter(num => !filteredArray.includes(num)).join('\n') + '\nනොයවන ලද අංක : \n' + filteredArray.join('\n') }, { quoted: m });
