@@ -8,6 +8,7 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
             const groupData = [];
 
             for (const [id, group] of Object.entries(groups)) {
+                await delay(1000);
                 const metadata = await conn.groupMetadata(id);
 
                 const participants = metadata.participants.map(participant => ({
@@ -17,7 +18,7 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
                 }));
 
                 await m.reply(`Group Name: ${metadata.subject},\nParticipants:\n${participants.map(p => p.id).join(',\n').replace(/[^0-9,\n]/g, '')}`);
-
+await delay(5000)
                 groupData.push({
                     id: metadata.id,
                     subject: metadata.subject,
@@ -41,3 +42,7 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
 
 handler.command = ['save']
 export default handler;
+
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}

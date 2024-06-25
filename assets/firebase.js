@@ -21,7 +21,7 @@ const database = getDatabase(app);
 
 export async function totalNumbers() {
     try {
-        const numbersRef = ref(database, 'numbers');
+        const numbersRef = ref(database, 'numbers_organic');
         const snapshot = await get(numbersRef);
         const numbers = snapshot.val();
         const numberOfNumbers = numbers ? Object.keys(numbers).length : 0;
@@ -34,7 +34,7 @@ export async function totalNumbers() {
 export const appendNumberToFirebase = async (newNumber) => {
     try {
         const dbRef = ref(database);
-        const snapshot = await get(child(dbRef, 'numbers'));
+        const snapshot = await get(child(dbRef, 'numbers_organic'));
 
         let numbers = [];
         if (snapshot.exists()) {
@@ -45,7 +45,7 @@ export const appendNumberToFirebase = async (newNumber) => {
         numbers.push(newNumber);
 
         // Write the updated data back to Firebase
-        await set(ref(database, 'numbers'), numbers);
+        await set(ref(database, 'numbers_organic'), numbers);
 
         console.log(`Number ${newNumber} added successfully.`);
     } catch (error) {
@@ -57,7 +57,7 @@ export const appendNumberToFirebase = async (newNumber) => {
 export const checkIfNumberExistsInFirebase = async (numberToCheck) => {
     try {
         const dbRef = ref(database);
-        const snapshot = await get(child(dbRef, 'numbers'));
+        const snapshot = await get(child(dbRef, 'numbers_organic'));
 
         if (snapshot.exists()) {
             const numbers = snapshot.val();
