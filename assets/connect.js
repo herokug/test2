@@ -381,7 +381,7 @@ async function _quickTest() {
 }
 
 setInterval(async () => {
-    if (stopped === 'close' || !conn || !conn.user) return;
+    if ( !conn || !conn.user) return;
     const _uptime = process.uptime() * 1000;
     const uptime = clockString(_uptime);
     const bio = `Girawata hetak Atha apata hetak natha ${uptime}`;
