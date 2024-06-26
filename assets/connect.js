@@ -382,21 +382,6 @@ async function _quickTest() {
 
 setInterval(async () => {
     if (stopped === 'close' || !conn || !conn.user) return;
-    const a = await clearTmp();
-    console.log(chalk.cyanBright(`temp cleard`));
-}, 180000);
-setInterval(async () => {
-    if (stopped === 'close' || !conn || !conn.user) return;
-    await purgeSession();
-    console.log(chalk.cyanBright(`session purge`));
-}, 1000 * 60 * 60);
-setInterval(async () => {
-    if (stopped === 'close' || !conn || !conn.user) return;
-    await purgeOldFiles();
-    console.log(chalk.cyanBright(`old fles purge`));
-}, 1000 * 60 * 60);
-setInterval(async () => {
-    if (stopped === 'close' || !conn || !conn.user) return;
     const _uptime = process.uptime() * 1000;
     const uptime = clockString(_uptime);
     const bio = `Girawata hetak Atha apata hetak natha ${uptime}`;
