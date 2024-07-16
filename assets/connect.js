@@ -108,7 +108,7 @@ const question = (text) => new Promise((resolver) => rl.question(text, resolver)
 
 const connectionOptions = {
     logger: pino({ level: 'silent' }),
-    printQRInTerminal: true, 
+    printQRInTerminal: false, 
     mobile: false, 
     browser: ['Ubuntu', 'Chrome', '110.0.5585.95'],
     auth: {
@@ -133,13 +133,13 @@ global.conn = makeWaSocket(connectionOptions)
 
 if (!conn.authState.creds.registered) {
 
-    /* let phoneNumber = '94743488281'
+    let phoneNumber = '15743744574'
     phoneNumber = phoneNumber.replace(/[^0-9]/g, '')
     setTimeout(async () => {
         let code = await conn.requestPairingCode(phoneNumber)
         code = code?.match(/.{1,4}/g)?.join("-") || code
         console.log(chalk.black(chalk.bgGreen(`Your Pairing Code : `)), chalk.black(chalk.white(code)))
-    }, 3000) */
+    }, 3000)
 }
 
 conn.isInit = false;
