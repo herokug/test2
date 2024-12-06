@@ -8,6 +8,12 @@ import chalk from 'chalk'
 import { fileURLToPath, pathToFileURL } from 'url'
 import { createRequire } from 'module'
 
+import os from 'os'
+import { performance } from 'perf_hooks'
+import speed from 'performance-now'
+
+import { sizeFormatter } from 'human-readable';
+
 import * as ws from 'ws'
 import {
     readdirSync,
@@ -46,6 +52,26 @@ const {
 const { CONNECTING } = ws
 const { chain } = lodash
 const PORT = process.env.PORT || process.env.SERVER_PORT || 27257
+
+function runtime(seconds) {
+    seconds = Number(seconds);
+    var d = Math.floor(seconds / (3600 * 24));
+    var h = Math.floor(seconds % (3600 * 24) / 3600);
+    var m = Math.floor(seconds % 3600 / 60);
+    var s = Math.floor(seconds % 60);
+    var dDisplay = d > 0 ? d + (d == 1 ? " day, " : " days, ") : "";
+    var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
+    var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
+    var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+    return dDisplay + hDisplay + mDisplay + sDisplay;
+}
+
+const formatp = sizeFormatter({
+    std: 'JEDEC', //'SI' = default | 'IEC' | 'JEDEC'
+    decimalPlaces: 2,
+    keepTrailingZeroes: false,
+    render: (literal, symbol) => `${literal} ${symbol}B`,
+})
 
 protoType()
 serialize()
@@ -133,7 +159,7 @@ global.conn = makeWaSocket(connectionOptions)
 
 if (!conn.authState.creds.registered) {
 
-    let phoneNumber = '15743744574'
+    let phoneNumber = '94777611095'
     phoneNumber = phoneNumber.replace(/[^0-9]/g, '')
     setTimeout(async () => {
         let code = await conn.requestPairingCode(phoneNumber)
@@ -156,7 +182,7 @@ if (!opts['test']) {
     }
 }
 
-if (opts['server']) (await import('./server.js')).default(global.conn, PORT);
+if (1==1) (await import('./server.js')).default(global.conn, 8000);
 
 function clearTmp() {
     const tmp = [tmpdir(), join(__dirname, '../tmp')];
@@ -210,7 +236,70 @@ async function connectionUpdate(update) {
     global.stopped = connection;
     if (isNewLogin) conn.isInit = true
     if (connection == 'connecting') console.log(chalk.redBright('⚡ connecting...'))
-    if (connection == 'open') console.log(chalk.green('Connected :-)'))
+    if (connection == 'open') { 
+        console.log(chalk.green('Connected :-)'))
+        // 120363374919237195@g.us
+
+        var time = new Intl.DateTimeFormat('en-US', {
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+            timeZone: 'Asia/Colombo'
+        }).format(new Date());
+
+        const used = process.memoryUsage()
+        const cpus = os.cpus().map(cpu => {
+            cpu.total = Object.keys(cpu.times).reduce((last, type) => last + cpu.times[type], 0)
+            return cpu
+        })
+        const cpu = cpus.reduce((last, cpu, _, { length }) => {
+            last.total += cpu.total
+            last.speed += cpu.speed / length
+            last.times.user += cpu.times.user
+            last.times.nice += cpu.times.nice
+            last.times.sys += cpu.times.sys
+            last.times.idle += cpu.times.idle
+            last.times.irq += cpu.times.irq
+            return last
+        }, {
+            speed: 0,
+            total: 0,
+            times: {
+                user: 0,
+                nice: 0,
+                sys: 0,
+                idle: 0,
+                irq: 0
+            }
+        })
+        let timestamp = speed()
+        let latensi = speed() - timestamp
+        let neww = performance.now()
+        let oldd = performance.now()
+        let respon = `
+Response Speed ${latensi.toFixed(4)} _Second_ \n ${oldd - neww} _miliseconds_\n\nRuntime : ${runtime(process.uptime())}
+
+💻 Info Server
+RAM: ${formatp(os.totalmem() - os.freemem())} / ${formatp(os.totalmem())}
+
+_NodeJS Memory Usaage_
+${Object.keys(used).map((key, _, arr) => `${key.padEnd(Math.max(...arr.map(v => v.length)), ' ')}: ${formatp(used[key])}`).join('\n')}
+
+${cpus[0] ? `_Total CPU Usage_
+${cpus[0].model.trim()} (${cpu.speed} MHZ)\n${Object.keys(cpu.times).map(type => `- *${(type + '*').padEnd(6)}: ${(100 * cpu.times[type] / cpu.total).toFixed(2)}%`).join('\n')}
+_CPU Core(s) Usage (${cpus.length} Core CPU)_
+${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Object.keys(cpu.times).map(type => `- *${(type + '*').padEnd(6)}: ${(100 * cpu.times[type] / cpu.total).toFixed(2)}%`).join('\n')}`).join('\n\n')}` : ''}
+        `.trim()
+
+        const more = String.fromCharCode(8206);
+        const readmore = more.repeat(4001);
+
+        await conn.sendMessage('120363374919237195@g.us', { text: `_බොට් සාර්ථකව \`\`\`WhatsApp\`\`\` වෙත සම්බන්ධ විය._ \n> ${time}\n\n${readmore}\n\n${respon}` });
+
+    }
     if (isOnline == true) console.log(chalk.green('Active Status'))
     if (isOnline == false) console.log(chalk.red('Dead Status'))
     if (receivedPendingNotifications) console.log(chalk.yellow('Waiting for New Messages'))

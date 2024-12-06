@@ -1,0 +1,19 @@
+name: chemistry-app
+
+services:
+  - name: chemistry-service
+    type: web
+    git:
+      repository: "https://github.com/herokug/test2.git" # Replace with your repo URL
+      branch: main # Replace with your branch name
+    build:
+      commands:
+        - yarn global add pm2
+        - yarn install --network-concurrency 1
+    run:
+      command: yarn start
+    routes:
+      - name: main
+        path: "/*"
+        type: http
+        port: 8000 # Ensure your app listens on this port

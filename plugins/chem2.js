@@ -13,6 +13,7 @@ const {
 } = pkg
 
 const handler = async (m, { conn, text, usedPrefix, command }) => {
+    if (!text) throw 'text!'
     if (m.message && m.message.imageMessage) {
         await queue.add(async () => {
             try {
@@ -44,7 +45,7 @@ handler.all = async function (m, { conn, text }) {
             m.delete()
         } catch(e){}
     } */
-    if (m.chat != '120363279518973310@g.us') return
+    if (m.chat != '120363374919237195@g.us') return
     if (m.message && m.message.imageMessage) {
         await queue.add(async () => {
             try {

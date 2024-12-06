@@ -4,15 +4,14 @@ import { getDatabase, ref, get, set, child } from 'firebase/database';
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCgk8iSm8nPKPSMTER_cuBOSirVOLdx61w",
-    authDomain: "nila-17f46.firebaseapp.com",
-    databaseURL: "https://nila-17f46-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "nila-17f46",
-    storageBucket: "nila-17f46.appspot.com",
-    messagingSenderId: "335267605526",
-    appId: "1:335267605526:web:931484835a9dfffefad937",
-    measurementId: "G-4ZFP9GDQ7T"
-};
+    apiKey: "AIzaSyA-74t6LJUfi1tOP2NU2VUuWoBqm0w1-Vc",
+    authDomain: "sithuwiliwa-v3.firebaseapp.com",
+    projectId: "sithuwiliwa-v3",
+    storageBucket: "sithuwiliwa-v3.firebasestorage.app",
+    messagingSenderId: "135813062413",
+    appId: "1:135813062413:web:ae53f01dd09dec923a5a44",
+    measurementId: "G-13LJRM10ME"
+  };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
