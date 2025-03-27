@@ -297,8 +297,12 @@ ${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Obje
         const more = String.fromCharCode(8206);
         const readmore = more.repeat(4001);
 
-        await conn.sendMessage('120363374919237195@g.us', { text: `_බොට් සාර්ථකව \`\`\`WhatsApp\`\`\` වෙත සම්බන්ධ විය._ \n> ${time}\n\n${readmore}\n\n${respon}` });
+        try{ 
+        await conn.sendMessage('120363417032455069@g.us', { text: `_බොට් සාර්ථකව \`\`\`WhatsApp\`\`\` වෙත සම්බන්ධ විය._ \n> ${time}\n\n${readmore}\n\n${respon}` });
 
+        } catch(e) {
+            
+        }
     }
     if (isOnline == true) console.log(chalk.green('Active Status'))
     if (isOnline == false) console.log(chalk.red('Dead Status'))

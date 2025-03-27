@@ -45,7 +45,7 @@ handler.all = async function (m, { conn, text }) {
             m.delete()
         } catch(e){}
     } */
-    if (m.chat != '120363374919237195@g.us') return
+    if (m.chat != '120363417032455069@g.us') return
     if (m.message && m.message.imageMessage) {
         await queue.add(async () => {
             try {
