@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "node assets/start.js",
-    "start": " pm2 delete all || true && node app.js --sithuwili && pm2 logs"
+    "start": " node app.js --delete && node app.js --sithuwili && pm2 logs"
   },
   "repository": {
     "type": "git",

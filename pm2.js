@@ -1,7 +1,7 @@
 import pm2 from 'pm2';
 import { resolve } from 'path';
 
-const appName = 'nila';
+const appName = 'promo';
 const scriptPath = resolve('./assets/connect.js'); // Resolve the absolute path of the script
 
 const connectToPm2 = () => new Promise((resolve, reject) => {
@@ -79,7 +79,13 @@ export const deleteApp = async () => {
             if (err) {
                 console.error('Error deleting app:', err);
             } else {
-                console.log('App deleted successfully:', apps);
+                if (!apps || apps.length === 0) {
+                    console.error(`Error: App with name '${appName}' not found.`);
+                    // Optionally, you might want to handle this case differently,
+                    // for example, by resolving a Promise with an error.
+                } else {
+                    console.log('App deleted successfully:', apps);
+                }
             }
             await disconnectFromPm2();
         });
